@@ -38,7 +38,7 @@ mongoUtil.connectToServer( function( err, client ) {
 
 module.exports = app;
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 80
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
