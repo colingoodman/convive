@@ -67,15 +67,16 @@ def political_calc(answers):
 	
 def main():
 	user_sheet = sheets_grab()
-	print(len(user_sheet))
+	#print(len(user_sheet))
 
 	for user in user_sheet:
 		if user[0] == 'Timestamp': # skip header
 			continue
 		else: # set variables, figure out how to output this properly later
 			score = political_calc(user) 
-			#print(score)
-			interests = new_user[3].split(' ')
+			interests = user[3].split(' ')
+			print(user[1], ' Political ideology ', score, ' interests: ', interests)
+			
 	
 if __name__ == '__main__':
 	main()
