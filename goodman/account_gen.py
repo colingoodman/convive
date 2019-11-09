@@ -127,8 +127,9 @@ def main():
 				user_list.append(new)
 				
 			garbage = "false"
-			
-	mongo(user_list)
+		
+	if len(user_list) > 0:
+		mongo(user_list)
 			
 	
 if __name__ == '__main__':
