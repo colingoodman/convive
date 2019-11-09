@@ -1,0 +1,13 @@
+[Unit]
+Description=Convive backend
+After=network-online.target
+Wants=network-online.target systemd-networkd-wait-online.service
+
+[Service]
+Group=root
+User=root
+WorkingDirectory=/hack19/vueApp
+ExecStart=/usr/local/bin/npm run start
+
+[Install]
+WantedBy=multi-user.target
