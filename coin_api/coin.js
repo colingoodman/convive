@@ -1,6 +1,6 @@
 var axios = require('axios');
 
-var domain = "http://127.0.0.1" ; 
+var domain = "http://localhost" ; 
 var Port = 3001 ; 
 var walletId = "d016901a438767ad8647b521cdb2471e1d2ddc943e5fd6d3a90c7d809bbf43e7"; 
 var walletAId = "3b0f0bd212dcb690d5f7fd2f2f1ae56b778f622bd109ce4ad016d5a0777cf6b0"; 
