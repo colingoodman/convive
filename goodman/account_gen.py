@@ -8,11 +8,17 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import json
+import pymongo
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
 SAMPLE_SPREADSHEET_ID = '1fdAiKz07MDMHXxb5hdwRBVwIG3EaPe4i-IuBMdLAZpk'
 SAMPLE_RANGE_NAME = 'Form Responses 1!A:I' # this range shit is garbo
+
+# mongo stuff
+client = pymongo.MongoClient('mongodb+srv://johnchapple:hack19password@cluster0-dwemy.mongodb.net/test?retryWrites=true&w=majority')
+db = client.politalkdb
+posts = db.Users
 
 # this was almost all grabbed straight from an example on the API docs
 def sheets_grab():
@@ -73,25 +79,56 @@ def make_json(user):
 	score = political_calc(user)
 	interests = user[3].split(' ')
 	
-	x = 'blah'
-	x = '{"username":{0}, "password":{1}, "score":{2}"}'.format(user[1], user[2], user[3])
+	#x = 'blah'
+	#x = '"username":{0}, "password":{1}, "score":{2}"'.format(user[1], user[2], score)
+	
+	temp_dict = {}
+	index = 0
+	for item in interests:
+		temp_dict[str(index)] = item
+		index += 1
+	
+	x = {
+		"username": user[1],
+		"password": user[2],
+		"score": score,
+		"interests": temp_dict
+	}
 		
-	print(x)
-	print(type(x))
+	#result = json.dumps(x)
+	#return result
+	return x
+	
+def mongo(user_list):
+	new_result = posts.insert_many(user_list)
+	
+	return 0
 	
 def main():
 	user_sheet = sheets_grab()
 	#print(len(user_sheet))
+	user_list = []
 
 	for user in user_sheet:
 		if user[0] == 'Timestamp': # skip header
 			continue
 		else: # set variables, figure out how to output this properly later
-			make_json(user)
-			#print('###FJDKSJFKLJGLKD#', user)
-			#score = political_calc(user) 
-			#interests = user[3].split(' ')
-			#print(user[1], ' Political ideology ', score, ' interests: ', interests)
+			this_name = user[1]
+			garbage = "false"
+			
+			cursor = posts.find({})
+			
+			for entity in cursor:
+				if entity["username"] == this_name:
+					garbage = "skip"
+					
+			if garbage == "false":
+				new = make_json(user)
+				user_list.append(new)
+				
+			garbage = "false"
+			
+	mongo(user_list)
 			
 	
 if __name__ == '__main__':

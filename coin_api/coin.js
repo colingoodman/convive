@@ -1,8 +1,8 @@
 var axios = require('axios');
 
-var domain = "http://127.0.0.1" ; 
+var domain = "http://localhost" ; 
 var Port = 3001 ; 
-var walletId = "d016901a438767ad8647b521cdb2471e1d2ddc943e5fd6d3a90c7d809bbf43e7"; 
+var walletId = "a8c564c6efcde5792b563710e0c5c9133809463b6af176fc7f67316e67a17377"; 
 var walletAId = "3b0f0bd212dcb690d5f7fd2f2f1ae56b778f622bd109ce4ad016d5a0777cf6b0"; 
 
 
@@ -131,10 +131,36 @@ getinfo :  async function (WID)
         console.log(error)
       });
     return result; 
+  },
+  mine :  async function () 
+  {
+    var url = domain +":"+Port + '/miner/mine/' ; 
+
+    var post_data = JSON.stringify({
+      "rewardAddress": walletAId,
+      "feeAddress": walletAId
+    }); 
+
+      let result = await 
+      axios.post(
+            
+            url ,post_data  , 
+            {
+                headers: {
+                'Content-Type': 'application/json'                }
+            } 
+          ).then(response => {
+        //console.log(response.data); 
+        return response.data
+      })
+      .catch(error => {
+        console.log(error)
+      });
+    return result; 
   }
 };
 var coin = require('./coin');
-
+/*
 coin.getbalance("3b0f0bd212dcb690d5f7fd2f2f1ae56b778f622bd109ce4ad016d5a0777cf6b0")
 .then(function(item) {
     console.log(item); 
@@ -152,4 +178,15 @@ coin.createAid(walletId , "string" , "string").then(function(item) {
 });
 coin.getinfo(walletId).then(function(item) {
     console.log(item); 
+});*/
+
+coin.createWid("string" , "string").then(function(item) {
+    console.log(item); 
 });
+coin.createAid("string" , "string").then(function(item) {
+  console.log(item); 
+});
+
+/*coin.mine().then(function(item) {
+    console.log(item); 
+});*/
