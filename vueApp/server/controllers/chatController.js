@@ -34,10 +34,11 @@ module.exports = function(app){
     res.end()
   });
 
-  app.get('/message', async (req, res) => {
+  app.get('/chat/:chatid/messages', async (req, res) => {
     if (!req.user) return res.sendStatus(401)
+    console.log(req.params)
 
-    res.send(await db.collection( 'Messages' ).find({ chatID: new ObjectID(req.body.chatID) }).toArray());
+    res.send(await db.collection( 'Messages' ).find({ "chatID": new ObjectID(req.params.chatid) }).toArray());
   })
 
 

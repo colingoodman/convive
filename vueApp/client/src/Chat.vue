@@ -57,13 +57,12 @@ export default {
   data: () => ({
     newMessage: '',
     messages: [],
-    chatID: '5dc7063a1c9d440000b45a35',
+    chatID: "5dc7063a1c9d440000b45a35",
   }),
   methods: {
     fetchMessages() {
-      axios.get('/message', {
-        chatID: this.chatID,
-      }).then(response => {
+      axios.get(`/chat/${this.chatID}/messages`)
+      .then(response => {
         this.messages = response.data
       })
     },
