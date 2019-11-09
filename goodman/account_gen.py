@@ -10,6 +10,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 SAMPLE_SPREADSHEET_ID = '1fdAiKz07MDMHXxb5hdwRBVwIG3EaPe4i-IuBMdLAZpk'
 SAMPLE_RANGE_NAME = 'Form Responses 1!A:I' # this range shit is garbo
 
+# this was almost all grabbed straight from an example on the API docs
 def sheets_grab():
 	creds = None
 	if os.path.exists('token.pickle'):
@@ -29,13 +30,7 @@ def sheets_grab():
 	
 	sheet = service.spreadsheets()
 	result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,range=SAMPLE_RANGE_NAME).execute()
-	values = result.get('values', [])
-	
-	#if not values:
-	#	print('No data found.')
-	#else:
-	#	for row in values:
-	#		print((row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]))
+	values = result.get('values', []) # this is a 2d array
 			
 	return values
 		
@@ -75,11 +70,10 @@ def main():
 	print(len(user_sheet))
 
 	for user in user_sheet:
-		print('blah')
-		if user[0] == 'Timestamp':
+		if user[0] == 'Timestamp': # skip header
 			continue
-		else:
-			score = political_calc(user)
+		else: # set variables, figure out how to output this properly later
+			score = political_calc(user) 
 			#print(score)
 			interests = new_user[3].split(' ')
 	
