@@ -1,5 +1,5 @@
 {
-  "name": "lifetoolbox",
+  "name": "convive",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -26,7 +26,7 @@
     "node-sass-middleware": "0.11.0",
     "vue-axios": "^2.1.4"
   },
-  "description": "life organized.",
+  "description": "people talking",
   "main": "app.js",
   "devDependencies": {
     "nodemon": "^1.19.1"

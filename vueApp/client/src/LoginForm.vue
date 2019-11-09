@@ -12,7 +12,7 @@
     </label>
     <input
       id="username"
-      v-model="email"
+      v-model="username"
       class="block w-full p-1 border border-gray-500 rounded-sm"
       type="text"
       required
@@ -40,12 +40,6 @@
       >
         Log in
       </button>
-      <button
-        class="underline text-gray-500"
-        @click="$emit('register')"
-      >
-        Create an account
-      </button>
     </div>
   </form>
 </template>
@@ -53,19 +47,19 @@
 <script>
 import axios from 'axios'
 
-import { handleSuccessfulLogin } from '../../auth'
+import { handleSuccessfulLogin } from './auth'
 
 export default {
   data() {
     return {
-      email: '',
+      username: '',
       password: '',
     }
   },
   methods: {
     submit() {
       axios.post('/login', {
-        email: this.email,
+        username: this.username,
         password: this.password,
       })
         .then(response => {

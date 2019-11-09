@@ -32,8 +32,8 @@ mongoUtil.connectToServer( function( err, client ) {
   if (err) console.log(err);
   // start the rest of your app here
 
-  var taskController = require('./controllers/taskController');
-  taskController(app);
+  var authController = require('./controllers/authController');
+  authController(app);
 } );
 
 module.exports = app;

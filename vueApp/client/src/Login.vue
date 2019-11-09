@@ -4,20 +4,13 @@
   >
     <div
       class="Modal rounded bg-white shadow-lg"
+      style="width: 25vw;"
     >
       <div class="p-3">
-        <img src="ltblabel1.png">
         <div
           class="flex"
         >
-          <register-form
-            v-if="register"
-            class="flex-grow p-3"
-            @register="hide"
-            @login="register = false"
-          />
           <login-form
-            v-else
             class="flex-grow p-3"
             @login="hide"
             @register="register = true"
@@ -30,10 +23,9 @@
 
 <script>
 import LoginForm from './LoginForm.vue'
-import RegisterForm from './RegisterForm.vue'
 
 export default {
-  components: { LoginForm, RegisterForm },
+  components: { LoginForm },
   data: () => ({
     register: false,
   }),

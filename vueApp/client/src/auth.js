@@ -19,11 +19,8 @@ export function checkAuthentication() {
 export async function handleAuthentication(token) {
   axios.defaults.headers.common['Authorization'] = token
 
-  store.settings = (await axios.get('/settings')).data
-
   const payload = decodeJWT(token)
   store.user = payload.user
-  axios.patch(`/users/${store.user.id}`, { previousLogin: new Date() })
 
-  router.replace('/app')
+  router.replace('/chat')
 }

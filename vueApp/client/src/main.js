@@ -5,9 +5,9 @@ import axios from 'axios'
 import VueRouter from 'vue-router'
 
 import App from './App.vue'
-import Toolbox from './components/Toolbox.vue'
-import AuthScreen from './components/auth/authScreen.vue'
-import UserSettings from './components/auth/UserSettings.vue'
+import Start from './Start.vue'
+import Login from './Login.vue'
+import Chat from './Chat.vue'
 
 import store from './store'
 import { checkAuthentication } from './auth'
@@ -29,11 +29,9 @@ const authGuard = (to, from, next) => {
 }
 
 const routes = [
-  { path: '/', redirect: { path: '/auth' } },
-  { path: '/landing', redirect: { path: '/auth' } },
-  { path: '/app', component: Toolbox, beforeEnter: authGuard },
-  { path: '/auth', component: AuthScreen },
-  { path: '/user', component: UserSettings, beforeEnter: authGuard },
+  { path: '/', component: Start },
+  { path: '/login', component: Login },
+  { path: '/chat', component: Chat, beforeEnter: authGuard},
   { path: '*', redirect: '/' },
 ]
 

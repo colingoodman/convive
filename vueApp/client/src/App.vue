@@ -1,8 +1,7 @@
 <template>
   <div
     id="app"
-    class="bg-grey-100 justify-center"
-    :style="{ backgroundColor: this.$store.settings.colorHex }"
+    class="bg-gray-400 justify-center"
   >
     <nav
       class="p-2 flex"
@@ -19,21 +18,16 @@
         </button>
       </router-link>
 
-      <router-link
-        v-if="$store.user"
-        to="app"
-      >
-        <button
-          class="p-1 ml-1 border-2 border-green-800 bg-green-800 hover:border-green-600 hover:bg-green-600 text-white rounded-sm flex-shrink-0"
+        <div
+          class="p-1 ml-1 text-blue-500 rounded-sm flex-shrink-0"
         >
-          Toolbox
-        </button>
-      </router-link>
+          <b>Convive</b>
+        </div>
 
       <div class="flex-grow" />
 
       <router-link
-        v-if="!$store.user"
+        v-if="false"
         to="auth"
       >
         <button
@@ -44,12 +38,13 @@
       </router-link>
       <router-link
         v-if="$store.user"
-        to="user"
+        to="/"
       >
         <button
+          @click="signOut"
           class="p-1 m border-green-800 bg-green-800 border-2 text-white hover:bg-green-500 hover:border-green-500 rounded flex-shrink-0"
         >
-          <user-icon />
+          Log Out
         </button>
       </router-link>
     </nav>
@@ -63,13 +58,17 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 import { UserIcon } from 'vue-feather-icons'
 
 export default {
   name: 'App',
   components: { UserIcon },
+  methods: {
+    signOut() {
+      localStorage.removeItem('jwt')
+      location.reload()
+    },
+  }
 }
 </script>
 
