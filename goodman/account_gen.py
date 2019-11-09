@@ -1,9 +1,13 @@
+# FIRST: AUTHENTICATION
+# This file will open a browser (and provide a link) to log in with a google account
+
 from __future__ import print_function
 import pickle
 import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+import json
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
@@ -65,6 +69,16 @@ def political_calc(answers):
 		
 	return score
 	
+def make_json(user):
+	score = political_calc(user)
+	interests = user[3].split(' ')
+	
+	x = 'blah'
+	x = '{"username":{0}, "password":{1}, "score":{2}"}'.format(user[1], user[2], user[3])
+		
+	print(x)
+	print(type(x))
+	
 def main():
 	user_sheet = sheets_grab()
 	#print(len(user_sheet))
@@ -73,9 +87,11 @@ def main():
 		if user[0] == 'Timestamp': # skip header
 			continue
 		else: # set variables, figure out how to output this properly later
-			score = political_calc(user) 
-			interests = user[3].split(' ')
-			print(user[1], ' Political ideology ', score, ' interests: ', interests)
+			make_json(user)
+			#print('###FJDKSJFKLJGLKD#', user)
+			#score = political_calc(user) 
+			#interests = user[3].split(' ')
+			#print(user[1], ' Political ideology ', score, ' interests: ', interests)
 			
 	
 if __name__ == '__main__':
