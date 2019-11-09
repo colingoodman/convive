@@ -5,7 +5,7 @@ var mongodb = require('mongodb');
 const ObjectID = require('mongodb').ObjectID
 const mongoUtil = require( '../mongoUtil' );
 const db = mongoUtil.getDb();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 

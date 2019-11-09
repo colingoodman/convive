@@ -11,7 +11,7 @@ var morgan = require('morgan');
 var moment = require('moment');
 var bodyParser = require('body-parser'); //so we can get information from req.body
 var urlencodedParser = bodyParser.urlencoded({ extended: false });// same for above
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('./config');
 
@@ -54,7 +54,7 @@ app.use(function(req, res, next) {
       const payload = jwt.verify(token, config.secret)
       const user = payload.user
       req.user = user
-    } catch {}
+    } catch(e) {}
 
     next();
 });
