@@ -1,0 +1,36 @@
+{
+  "name": "lifetoolbox",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server/index.js",
+    "watch": "nodemon --watch server server/index.js",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.18.3",
+    "brando": "0.0.61",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "^4.16.4",
+    "express-vue": "^5.13.1",
+    "http-errors": "~1.6.2",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "mongodb": "^3.2.3",
+    "mongoose": "^5.5.2",
+    "morgan": "~1.9.0",
+    "node-sass-middleware": "0.11.0",
+    "vue-axios": "^2.1.4"
+  },
+  "description": "life organized.",
+  "main": "app.js",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "author": "John Chapple",
+  "license": "ISC"
+}
