@@ -1,0 +1,6 @@
+node_modules/
+server/public/
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+.vs/lifetoolbox/v15/.suo
+
