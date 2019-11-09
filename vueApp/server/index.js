@@ -34,11 +34,13 @@ mongoUtil.connectToServer( function( err, client ) {
 
   var authController = require('./controllers/authController');
   authController(app);
+  var chatController = require('./controllers/chatController')
+  chatController(app);
 } );
 
 module.exports = app;
 
-const port = process.env.PORT || 80
+const port = process.env.PORT || 4000
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

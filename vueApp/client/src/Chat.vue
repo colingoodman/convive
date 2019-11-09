@@ -26,7 +26,7 @@
             v-for="(message, i) in messages.slice().reverse()"
             :key="message._id"
           >
-            { message.message }
+            {{ message.message }}
           </li>
         </ol>
       </div>
@@ -35,26 +35,49 @@
         style="height: 40px"
       >
         <input
+        v-model="newMessage"
         type="text"
         placeholder="Enter message here"
         />
+        <button
+          @click="addMessage"
+        >
+          Send
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
 
   data: () => ({
+    newMessage: '',
     messages: [],
-    chatID: Number,
+    chatID: '5dc7063a1c9d440000b45a35',
   }),
   methods: {
-    fetchMessages(chatID) {
-      axios.get('/message').then(response => {
+    fetchMessages() {
+      axios.get('/message', {
+        chatID: this.chatID,
+      }).then(response => {
         this.messages = response.data
       })
+    },
+    addMessage() {
+      let param = {
+        message: this.newMessage,
+        username: 'test',
+        chatID: this.chatID,
+      }
+      axios
+        .post('/message', param)
+        .then(() => {
+          this.fetchMessages()
+        })
     },
   },
 }

@@ -18,12 +18,16 @@ module.exports = function(app){
     res.end()
   });
 
+  app.get('/chat', async function(req, res) {
+    res.send(await db.collection( 'Chats' ).find({ "_id": new ObjectID(req.body.chatID) }).toArray());
+  });
+
   app.post('/message', async (req, res) => {
     const message = {
-        user: req.body.user,
+        username: req.body.username,
         message: req.body.message,
-        timestamep: new Date(),
-        chatID: req.body.chatID,
+        timestamp: new Date(),
+        chatID: new ObjectID(req.body.chatID),
       }
 
     await db.collection( 'Messages' ).insertOne(message)
@@ -33,7 +37,7 @@ module.exports = function(app){
   app.get('/message', async (req, res) => {
     if (!req.user) return res.sendStatus(401)
 
-    res.send(await db.collection( 'Messages' ).find({ chatID: req.body.chatID }).toArray());
+    res.send(await db.collection( 'Messages' ).find({ chatID: new ObjectID(req.body.chatID) }).toArray());
   })
 
 
