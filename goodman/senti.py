@@ -9,9 +9,9 @@ from google.cloud.language import enums
 from google.cloud.language import types
 
 #database stuff
-client = pymongo.MongoClient('mongodb+srv://johnchapple:hack19password@cluster0-dwemy.mongodb.net/test?retryWrites=true&w=majority')
-db = client.politalkdb
-posts = db.Chats
+#client = pymongo.MongoClient('mongodb+srv://johnchapple:hack19password@cluster0-dwemy.mongodb.net/test?retryWrites=true&w=majority')
+#db = client.politalkdb
+#posts = db.Chats
 
 def print_result(annotations):
 	score = annotations.document_sentiment.score
@@ -23,9 +23,11 @@ def print_result(annotations):
 		
 	print('Overall Sentiment: score of {} with magnitude of {}'.format(score, magnitude))
 	
-	pair = [score, magnitude]
 	
-	return pair
+	pair = [score, magnitude]
+	print("You should recieve this much change: ", calc_return(pair))
+	
+	return 0
 	
 def analyze(filename):
 	client = language.LanguageServiceClient()
@@ -38,13 +40,13 @@ def analyze(filename):
 		type = enums.Document.Type.PLAIN_TEXT)
 	annotations = client.analyze_sentiment(document=document)
 	
-	return print_result(annotations)
+	print_result(annotations)
 	
 def mongo(target, score):
 	#target is the chat ID
 	coin_amt = calc_return(score)
 	
-	posts.update_one({'_id':target}, {"$coin_amt": coin_amt}, upsert=False)
+	posts.update_one({'_id':target}, {"$coin_amt": coin_amt}, upsert=False) # update existing User document field "coin_amt"
 
 	return 0
 	
@@ -60,8 +62,10 @@ if __name__ == '__main__':
 	parser.add_argument(
 		'filename',
 		help = 'The filename of the item you\'d like to analyze.')
+
 	args = parser.parse_args()
+	#print(args)
 	
-	set = analyze(args.filename)
+	analyze(args.filename)
 	
 	
