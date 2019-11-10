@@ -50,10 +50,21 @@ def res(annotations):
 	
 	return set
 	
-def create_file(array_of_strings):
+def create_file(chat_id):
 	f = open("chat.txt","w+")
-	for string in array_of_strings:
+	target_chat = ObjectId(chat_id)
+	
+	mycol = db.Messages
+	
+	array_of_messages = mycol.find({},{"chatID": target_chat}):
+	strings = []
+	
+	for message in array_of_messages:
+		strings.append(message['message'])
+	
+	for string in strings:
 		f.write(string)
+		
 	f.close()
 	
 def calc_return(score): # DETERMINE HOW MANY COINS TO AWARD
@@ -72,11 +83,9 @@ def mongo(target, score): # UPDATE MONGO DB
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description = __doc__,formatter_class = argparse.RawDescriptionHelpFormatter)
 	parser.add_argument('filename',help = 'The filename of the item you\'d like to analyze.')
-	parser.add_argument('chatid',help = 'target chat id')
+	#parser.add_argument('chatid',help = 'target chat id')
 	args = parser.parse_args()
 	print(args)
-	#print(args.filename)
-	#print(args.chatid)
 	create_file(args.filename) # args.filename is actually an array of strings 
 	set = analyze() # uses the text file made from create_file
 	mongo(args.chatid, set)

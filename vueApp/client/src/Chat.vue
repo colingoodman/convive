@@ -3,7 +3,7 @@
     class="newPage bg-green-100"
   >
     <div
-      v-if="chat.user0"
+      v-if="chat.user0 && !chatFinished"
       class="Modal rounded bg-white shadow-lg"
       style="width: 75vw; height: 60vh;"
     >
@@ -70,7 +70,7 @@
       </div>
     </div>
     <div
-      v-else
+      v-if="!chatFinished && !chat.user0"
       class="Modal rounded bg-white shadow-lg"
     >
       <button
@@ -79,6 +79,13 @@
     >
       Start a New Chat
     </button>
+    </div>
+    <div
+      v-if="chatFinished && chat.user0"
+      class="Modal rounded bg-white shadow-lg p-3"
+    >
+      <p>You finished your conversation.</p>
+      <p>You earned <b>{{ reward }} changeCoin.</b></p>
     </div>
   </div>
 </template>
@@ -98,6 +105,7 @@ export default {
     user1: {},
     commonInterests: null,
     reward: null,
+    chatFinished: false,
   }),
   methods: {
     startChat() {
@@ -109,6 +117,7 @@ export default {
       axios.get(`/chat/${this.chatID}`)
         .then(response => {
           this.chat = response.data
+          this.reward = this.chat.coin_amt
           axios.get(`/user/${this.chat.user0}`).then(response => { this.user0 = response.data })
           axios.get(`/user/${this.chat.user1}`).then(response => { this.user1 = response.data })
         })
@@ -132,25 +141,20 @@ export default {
         })
       },
       finishChat() {
-        //this.backup(this.messages, this.chatID)
-        reward = chat.coin_amt
+        this.chatFinished = true
+        axios.post(`/score`, { ObjId: this.chatID })
       },
-      backup(PATH , ObjId)
-        {
-          let param = {
-            PATH: PATH,
-            ObjId: ObjId
-          }
-          axios.post('/score', param).then(response => {
-            this.reward = response.data
-            console.log(response)
-          })
-
-        }
   },
   created() {
     //this.fetchChat()
     //this.fetchMessages()
   },
+  mounted: function () {
+        this.$nextTick(function () {
+            window.setInterval(() => {
+                this.fetchMessages();
+            },1000);
+        })
+    },
 }
 </script>

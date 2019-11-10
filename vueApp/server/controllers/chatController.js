@@ -41,12 +41,14 @@ module.exports = function(app){
 
     res.send(await db.collection( 'Messages' ).find({ "chatID": new ObjectID(req.params.chatid) }).toArray());
   })
-/*
+
   app.post('/score', async (req, res) => {
-    const pythonProcess = await spawn('python',["backup2.py" , req.body.PATH  , req.body.ObjId])
-    const chat = await db.collection( 'Chats' ).findOne({ "_id": new ObjectID(req.body.ObjId) });
-    res.send(chat.coin_amt)
-  })
-*/
+
+    var exec = require('child_process').exec;
+
+    exec(`python backup2.py ${req.body.ObjId}`)
+    console.log("script")
+    res.end();
+    })
 
 }
