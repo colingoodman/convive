@@ -23,9 +23,7 @@ def print_result(annotations):
 		
 	print('Overall Sentiment: score of {} with magnitude of {}'.format(score, magnitude))
 	
-	
-	pair = [score, magnitude]
-	print("You should recieve this much change: ", calc_return(pair))
+	#pair = [score, magnitude]
 	
 	return 0
 	
