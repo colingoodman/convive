@@ -18,8 +18,8 @@ module.exports = function(app){
     res.end()
   });
 
-  app.get('/chat', async function(req, res) {
-    res.send(await db.collection( 'Chats' ).find({ "_id": new ObjectID(req.body.chatID) }).toArray());
+  app.get('/chat/:chatid', async function(req, res) {
+    res.send(await db.collection( 'Chats' ).findOne({ "_id": new ObjectID(req.params.chatid) }));
   });
 
   app.post('/message', async (req, res) => {

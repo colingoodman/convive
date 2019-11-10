@@ -78,15 +78,17 @@ export default {
 @tailwind utilities;
 
 #app {
-  @apply max-w-full min-h-screen font-sans antialiased text-black;
+  @apply max-w-full font-sans antialiased text-black;
 }
 
 body {
   @apply m-0;
+  background-image: linear-gradient(#647C64, rgb(159, 193, 255));
+  height: 100vh;
 }
 
 .newPage {
-  @apply min-h-screen w-full bg-center;
+  @apply w-full bg-center;
   background-color: #647C64;
 }
 

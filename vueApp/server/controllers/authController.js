@@ -5,13 +5,12 @@ var mongodb = require('mongodb');
 const ObjectID = require('mongodb').ObjectID
 const mongoUtil = require( '../mongoUtil' );
 const db = mongoUtil.getDb();
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
 function createToken(user) {
   return jwt.sign({
-    user: { id: user._id }
+    user: { id: user._id, username: user.username }
   }, config.secret);
 }
 
@@ -40,15 +39,20 @@ module.exports = function(app){
 
   app.post('/login', async (req, res) => {
     const user = await db.collection( 'Users' ).findOne(
-      { 'username' : req.body.username }
+      { 'username' : req.body.username, 'password' : req.body.password }
     )
 
     if (!user) return res.status(404).send('No user found.');
-    const passwordIsValid = await bcrypt.compare(req.body.password, user.password);
-    if (!passwordIsValid) return res.sendStatus(401);
-
     res.send({ token: createToken(user) });
   });
+
+  app.get('/user/:id', async (req, res) => {
+    const user = await db.collection( 'Users' ).findOne(
+      { 'username' : req.params.id }
+    )
+    delete user.password
+    res.send(user)
+  })
 
 
 }

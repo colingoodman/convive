@@ -1,20 +1,29 @@
 <template>
   <div
-    class="bg-grey-100 justify-center rounded bg-white shadow-lg Modal"
-    style="width: 30vw; height: 30vh;"
+    class="bg-grey-400 justify-center rounded bg-white shadow-lg Modal"
+    style="width: 30vw;"
   >
-    <h1 class="text-xl font-bold mb-2 block bg-gray-200 p-3">
+    <h1 class="text-xl font-bold block bg-gray-300 p-3">
       Convive
     </h1>
-
-    <a href="https://forms.gle/kntGMMJTQYr1ULje9 " target="_blank">
+    <div
+      class="flex p-3"
+    >
+      <a href="https://forms.gle/kntGMMJTQYr1ULje9 " target="_blank">
+        <button
+          @click="redirect"
+          class="border-1 bg-blue-200 hover:bg-blue-400 p-3 rounded-sm float-left block w-100"
+        >
+            Get Started
+        </button>
+      </a>
       <button
         @click="redirect"
-        class="border-1 bg-gray-200 p-3 rounded-sm mx-auto"
+        class="border-1 bg-gray-200 hover:bg-gray-400 p-3 rounded-sm ml-auto float-right block w-100"
       >
-          Get Started
+        Log In
       </button>
-    </a>
+    </div>
   </div>
 </template>
 
@@ -35,16 +44,12 @@ export default {
 @tailwind components;
 @tailwind utilities;
 
-#app {
-  @apply max-w-full min-h-screen font-sans antialiased text-black;
-}
-
 body {
   @apply m-0;
 }
 
 .newPage {
-  @apply min-h-screen w-full bg-center;
+  @apply w-full bg-center;
   background-color: #647C64;
 }
 
