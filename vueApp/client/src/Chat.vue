@@ -91,7 +91,7 @@
 
 <script>
 import axios from 'axios'
-var coin = require('coin')
+var coin = require('./coin')
 
 
 export default {
