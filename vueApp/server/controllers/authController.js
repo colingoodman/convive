@@ -7,10 +7,11 @@ const mongoUtil = require( '../mongoUtil' );
 const db = mongoUtil.getDb();
 const jwt = require('jsonwebtoken');
 const config = require('../config');
+const coin = require('../../client/src/coin')
 
 function createToken(user) {
   return jwt.sign({
-    user: { id: user._id, username: user.username }
+    user: { id: user._id, username: user.username, WID: user.WID, AID: user.AID }
   }, config.secret);
 }
 
@@ -43,6 +44,16 @@ module.exports = function(app){
     )
 
     if (!user) return res.status(404).send('No user found.');
+
+    if (user.WID == null) {
+      coin.createWid(user.username, user.password).then(response => {
+        user.WID = response.id
+        coin.createAid(response.id, user.username, user.password).then(response => {
+          user.AID = response.id
+        })
+      })
+    }
+
     res.send({ token: createToken(user) });
   });
 

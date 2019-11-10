@@ -13,6 +13,13 @@
       A Conversation between <b>{{ chat.user0 }}</b> and <b>{{ chat.user1 }}</b> also {{ user0 }}
 
       </h1>
+      <h1>
+        <span
+          class="w-100"
+            v-for="(interest, i) in commonInterests"
+            :key="interest"
+          >{{ interest }}</span>
+      </h1>
       <div
         class="h-100 bg-blue-100 px-2"
         style="height: 100%; overflow-y: scroll;"
@@ -84,6 +91,8 @@
 
 <script>
 import axios from 'axios'
+var coin = require('coin')
+
 
 export default {
 
@@ -97,7 +106,13 @@ export default {
   }),
   computed: {
     commonInterests() {
-
+      let common = []
+      foreach (interest in user0.interests); {
+        foreach (i in user1.interests); {
+          if (interest == i) {common.push(interest)}
+        }
+      }
+      return common
     },
   },
   methods: {
