@@ -44,9 +44,9 @@ module.exports = function(app){
 
   app.post('/score', async (req, res) => {
 
-    var exec = require('child_process').exec;
+    //var exec = require('child_process').exec;
 
-    exec(`python backup2.py ${req.body.ObjId}`)
+    //exec(`python backup2.py ${req.body.ObjId}`)
     console.log("script")
     res.end();
     })
