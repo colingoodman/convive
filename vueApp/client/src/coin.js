@@ -2,7 +2,7 @@ var axios = require('axios');
 
 var domain = "http://localhost" ; 
 var Port = 3001 ; 
-var walletId = "a8c564c6efcde5792b563710e0c5c9133809463b6af176fc7f67316e67a17377"; 
+var walletId = "a99a6bb23988e6488a2748cc84caf03d4c06581328b07c5b57c917c6e807d52b"; 
 var walletAId = "3b0f0bd212dcb690d5f7fd2f2f1ae56b778f622bd109ce4ad016d5a0777cf6b0"; 
 
 
@@ -180,12 +180,14 @@ coin.getinfo(walletId).then(function(item) {
     console.log(item); 
 });*/
 
+/*
 coin.createWid("string" , "string").then(function(item) {
     console.log(item); 
 });
 coin.createAid("string" , "string").then(function(item) {
   console.log(item); 
 });
+*/
 
 /*coin.mine().then(function(item) {
     console.log(item); 
