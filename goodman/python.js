@@ -4,7 +4,7 @@ module.exports =
 accountGen : function ()
 {
     const spawn = require("child_process").spawn;
-    const pythonProcess = spawn('python3',["/home/cwakefield/github/hack19/goodman/account_gen.py" ]); 
+    const pythonProcess = spawn('python3',["/home/cwakefield/github/hack19/goodman/account_gen.py"  , ""]); 
 }, 
 
 backup : function(PATH , ObjId)
