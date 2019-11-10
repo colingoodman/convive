@@ -21,9 +21,10 @@
           <li
             v-for="(message, i) in messages"
             :key="message._id"
-            class="block text-blue-900"
+            class="block"
             :class="{
-              'text-blue-600': message.username == chat.user0,
+              'text-red-600': (message.username === chat.user0),
+              'text-blue-900': (message.username === chat.user1),
             }"
           >
             <b>{{ message.username }}</b>: {{ message.message }}
@@ -34,39 +35,29 @@
         class="p-1 bg-gray-100 border-2 flex"
         style="height: 60px"
       >
+        <form
+          class="flex-1"
+          @submit.prevent="addMessage"
+        >
         <input
         v-model="newMessage"
         type="text"
         placeholder="Enter message here"
-        class="flex-1 border-2"
+        class="w-full border-2 p-2"
         />
-        <div
-        >
+        </form>
           <button
             @click="addMessage"
-            class="mx-2 p-2 border-2 bg-blue-300 hover:bg-blue-500"
+            class="mx-2 p-2 rounded-sm bg-blue-500 text-white hover:bg-blue-400"
           >
             Send
           </button>
-                <button
-          class="bg-yellow-200 mx-1 p-2 border-2"
-          @click="fetchMessages"
-          >
-          Refresh
-          </button>
-          <button
-            class="bg-yellow-200 mx-1 p-2 border-2"
-            @click="fetchChat"
-          >
-          Fetch Chat
-          </button>
           <button
             @click="finishChat"
-            class="bg-red-300 mx-1 p-2 border-2"
+            class="bg-red-500 hover:bg-red-400 text-white rounded-sm mx-1 p-2"
           >
             Finish
           </button>
-        </div>
       </div>
     </div>
     <div
@@ -138,12 +129,16 @@ export default {
         .post('/message', param)
         .then(() => {
           this.fetchMessages()
+          this.newMessage = ''
         })
       },
       finishChat() {
         this.chatFinished = true
         axios.post(`/score`, { ObjId: this.chatID })
       },
+      findInterests() {
+
+      }
   },
   created() {
     //this.fetchChat()
