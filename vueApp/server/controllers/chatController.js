@@ -5,6 +5,7 @@ var mongodb = require('mongodb');
 const ObjectID = require('mongodb').ObjectID
 const mongoUtil = require( '../mongoUtil' );
 const db = mongoUtil.getDb();
+const spawn = require("child_process").spawn;
 
 module.exports = function(app){
 
@@ -40,6 +41,12 @@ module.exports = function(app){
 
     res.send(await db.collection( 'Messages' ).find({ "chatID": new ObjectID(req.params.chatid) }).toArray());
   })
-
+/*
+  app.post('/score', async (req, res) => {
+    const pythonProcess = await spawn('python',["backup2.py" , req.body.PATH  , req.body.ObjId])
+    const chat = await db.collection( 'Chats' ).findOne({ "_id": new ObjectID(req.body.ObjId) });
+    res.send(chat.coin_amt)
+  })
+*/
 
 }

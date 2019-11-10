@@ -11,7 +11,7 @@ const coin = require('../../client/src/coin')
 
 function createToken(user) {
   return jwt.sign({
-    user: { id: user._id, username: user.username, WID: user.WID, AID: user.AID }
+    user: { id: user._id, username: user.username }
   }, config.secret);
 }
 
@@ -45,6 +45,7 @@ module.exports = function(app){
 
     if (!user) return res.status(404).send('No user found.');
 
+    /*
     if (user.WID == null) {
       coin.createWid(user.username, user.password).then(response => {
         user.WID = response.id
@@ -53,6 +54,7 @@ module.exports = function(app){
         })
       })
     }
+    */
 
     res.send({ token: createToken(user) });
   });

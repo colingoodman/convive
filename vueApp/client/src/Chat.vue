@@ -10,15 +10,8 @@
       <h1
         class="p-3"
       >
-      A Conversation between <b>{{ chat.user0 }}</b> and <b>{{ chat.user1 }}</b> also {{ user0 }}
+      A Conversation between <b>{{ chat.user0 }}</b> and <b>{{ chat.user1 }}</b>
 
-      </h1>
-      <h1>
-        <span
-          class="w-100"
-            v-for="(interest, i) in commonInterests"
-            :key="interest"
-          >{{ interest }}</span>
       </h1>
       <div
         class="h-100 bg-blue-100 px-2"
@@ -30,7 +23,7 @@
             :key="message._id"
             class="block text-blue-900"
             :class="{
-              'text-blue-600': message.username = chat.user0,
+              'text-blue-600': message.username == chat.user0,
             }"
           >
             <b>{{ message.username }}</b>: {{ message.message }}
@@ -68,6 +61,7 @@
           Fetch Chat
           </button>
           <button
+            @click="finishChat"
             class="bg-red-300 mx-1 p-2 border-2"
           >
             Finish
@@ -91,8 +85,7 @@
 
 <script>
 import axios from 'axios'
-var coin = require('./coin')
-
+const spawn = require("child_process").spawn;
 
 export default {
 
@@ -103,22 +96,14 @@ export default {
     chat: {},
     user0: {},
     user1: {},
+    commonInterests: null,
+    reward: null,
   }),
-  computed: {
-    commonInterests() {
-      let common = []
-      foreach (interest in user0.interests); {
-        foreach (i in user1.interests); {
-          if (interest == i) {common.push(interest)}
-        }
-      }
-      return common
-    },
-  },
   methods: {
     startChat() {
       this.fetchChat()
       this.fetchMessages()
+      this.findInterests()
     },
     fetchChat() {
       axios.get(`/chat/${this.chatID}`)
@@ -145,7 +130,23 @@ export default {
         .then(() => {
           this.fetchMessages()
         })
-      }
+      },
+      finishChat() {
+        //this.backup(this.messages, this.chatID)
+        reward = chat.coin_amt
+      },
+      backup(PATH , ObjId)
+        {
+          let param = {
+            PATH: PATH,
+            ObjId: ObjId
+          }
+          axios.post('/score', param).then(response => {
+            this.reward = response.data
+            console.log(response)
+          })
+
+        }
   },
   created() {
     //this.fetchChat()

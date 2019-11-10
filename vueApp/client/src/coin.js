@@ -1,14 +1,13 @@
-var axios = require('axios');
+//var axios = require('axios');
 
+/*
 var domain = "http://localhost" ; 
 var Port = 3001 ; 
 var walletId = "a99a6bb23988e6488a2748cc84caf03d4c06581328b07c5b57c917c6e807d52b"; 
 var walletAId = "3b0f0bd212dcb690d5f7fd2f2f1ae56b778f622bd109ce4ad016d5a0777cf6b0"; 
 
 
-module.exports = 
-{
-getbalance : async function (AID) 
+export async function getbalance(AID) 
   {
     var url = domain +":"+Port + '/operator/' + AID + '/balance' ; 
     let result = await axios.get(url).then(response => {
@@ -20,8 +19,8 @@ getbalance : async function (AID)
       });
     return result; 
     
-  },
-getcoins : async function (AID , Amount) 
+  }
+export async function getCoins(AID , Amount) 
   {
     var url = domain +":"+Port + '/operator/wallets/'+walletId+'/transactions' ; 
 
@@ -51,8 +50,8 @@ getcoins : async function (AID , Amount)
         console.log(error)
       });
     return result; 
-  },
-    createWid : async function (AccountPassword , AccountName)
+  }
+export async function createWid(AccountPassword , AccountName)
   {
     var url = domain +":"+Port + '/operator/wallets/' ; 
     var post_data = JSON.stringify({
@@ -76,8 +75,8 @@ getcoins : async function (AID , Amount)
         console.log(error)
       });
     return result; 
-  },
-  createAid : async function (WID  , AccountPassword , AccountName )
+  }
+export async function createAid(WID  , AccountPassword , AccountName )
   {
     var url = domain +":"+Port + '/operator/wallets/'+ WID + '/addresses' ; 
     var post_data = JSON.stringify({
@@ -104,8 +103,8 @@ getcoins : async function (AID , Amount)
         console.log(error)
       });
     return result; 
-  },
-getinfo :  async function (WID) 
+  }
+export async function getinfo(WID) 
   {
     var url = domain +":"+Port + '/operator/wallets/'+ WID ; 
 
@@ -131,8 +130,8 @@ getinfo :  async function (WID)
         console.log(error)
       });
     return result; 
-  },
-  mine :  async function () 
+  }
+export async function mine() 
   {
     var url = domain +":"+Port + '/miner/mine/' ; 
 
@@ -158,8 +157,6 @@ getinfo :  async function (WID)
       });
     return result; 
   }
-};
-var coin = require('./coin');
 /*
 coin.getbalance("3b0f0bd212dcb690d5f7fd2f2f1ae56b778f622bd109ce4ad016d5a0777cf6b0")
 .then(function(item) {
