@@ -26,10 +26,10 @@ def print_result(score, magnitude):
 	
 	#return 0
 	
-def analyze(filename):
+def analyze():
 	client = language.LanguageServiceClient()
 	
-	with open(filename, 'r') as review_file:
+	with open('chat.txt', 'r') as review_file:
 		content = review_file.read()
 		
 	document = types.Document(
@@ -49,6 +49,12 @@ def res(annotations):
 	print_result(score, magnitude)
 	
 	return set
+	
+def create_file(array_of_strings):
+	f = open("chat.txt","w+")
+	for string in array_of_strings:
+		f.write(string)
+	f.close()
 	
 def calc_return(score): # DETERMINE HOW MANY COINS TO AWARD
 	coin_count = (1000 * score[0]) + (100 * score[1])
@@ -71,5 +77,6 @@ if __name__ == '__main__':
 	print(args)
 	#print(args.filename)
 	#print(args.chatid)
-	set = analyze(args.filename)
+	create_file(args.filename) # args.filename is actually an array of strings 
+	set = analyze() # uses the text file made from create_file
 	mongo(args.chatid, set)
