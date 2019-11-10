@@ -54,6 +54,8 @@ def create_file(chat_id):
 	f = open("chat.txt","w+")
 	target_chat = ObjectId(chat_id)
 	
+	mycol = db.Messages
+	
 	array_of_messages = mycol.find({},{"chatID": target_chat}):
 	strings = []
 	
