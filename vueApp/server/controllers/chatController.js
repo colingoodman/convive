@@ -5,7 +5,6 @@ var mongodb = require('mongodb');
 const ObjectID = require('mongodb').ObjectID
 const mongoUtil = require( '../mongoUtil' );
 const db = mongoUtil.getDb();
-const spawn = require("child_process").spawn;
 
 module.exports = function(app){
 

@@ -7,7 +7,6 @@ const mongoUtil = require( '../mongoUtil' );
 const db = mongoUtil.getDb();
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-const coin = require('../../client/src/coin')
 
 function createToken(user) {
   return jwt.sign({

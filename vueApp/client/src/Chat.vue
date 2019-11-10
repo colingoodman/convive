@@ -83,7 +83,6 @@
 
 <script>
 import axios from 'axios'
-const spawn = require("child_process").spawn;
 
 export default {
 
@@ -134,7 +133,6 @@ export default {
       },
       finishChat() {
         this.chatFinished = true
-        axios.post(`/score`, { ObjId: this.chatID })
       },
       findInterests() {
 
