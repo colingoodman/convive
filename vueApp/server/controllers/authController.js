@@ -43,10 +43,6 @@ module.exports = function(app){
       { 'username' : req.body.username, 'password' : req.body.password }
     )
 
-    var exec = require('child_process').exec;
-
-    exec('python account_gen.py')
-
     if (!user) return res.status(404).send('No user found.');
 
     /*
